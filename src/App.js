@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  {/* Declare a new state array variable */}
+  const [list, setList] = useState([]);
+  {/* Declare a new state string variable */}
+  const [value, setValue] = useState("");
+
+  const addTo = () =>{
+    setList([...list, value])
+    setValue("  ")
+  }
+
+  const deleteTo = (index) => {
+    const  taskCopy = [...list]
+    taskCopy.splice(index,1)
+    setList(taskCopy)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>ToDo List</h1>
+      {/* Add an input box */}
+      <input 
+        type="text"
+        value={value}
+
+        onChange={(i) => {setValue(i.target.value)} }/>
+      <button onClick={addTo}>Add</button>
+
+      
+      <ul>
+        {list.map((item, index) => {
+          return (
+            <li key={index}> 
+              {item} <span onClick={() => deleteTo(index)} >x</span>
+            </li>
+          )
+        })}
+
+      </ul>
+      
     </div>
   );
-}
 
+      }
 export default App;
